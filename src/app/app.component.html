@@ -1,0 +1,120 @@
+<div class="grid-container">
+    <div class="header">
+        <div class="elo-selection">
+            <span class="inline-block">Elo: </span>
+            <app-selector-buttons class="inline-block" [options]="eloOptions" [selection]="selectedElo" (selectionChange)="changeEloRange($event)">
+            </app-selector-buttons>
+        </div>
+    </div>
+    <app-pokemon-list 
+        class="pokemon-selector scroll" 
+        [usageStats]="usageData"
+        [selectedIndex]="selectedIndex"
+        (selectedIndexChange)="changeSelectedPokemon($event)"
+    > </app-pokemon-list>
+
+    <div class="pokemon-info scroll flex-container" *ngIf="this.selectedSpeciesData && !isLoading">
+
+        <div class="box general-info" id="general-info">
+            <img class="image" width="140" height="140" [src]="this.selectedSpeciesData.officialArt" [alt]="this.selectedPokemon"/>
+            <div class="usage">
+                <h3>{{this.selectedPokemonName}}</h3>
+                Type: {{this.selectedSpeciesData.types.join(' / ')}}<br/>
+                Rank: {{this.usageData[this.selectedIndex].rank}}<br/>
+                Usage: {{this.pokemonUsageInfo.usage * 100 | number: '2.2-2'}}%<br/>
+                Total Montly Usage: {{this.pokemonUsageInfo.total}}<br/>
+            </div>
+        </div>
+
+        <div class="box abilities" id="abilities">
+            <h2>Abilities</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let ability of abilities; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ ability.name }}</td>
+                    <td>{{ ability.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box items" id="items">
+            <h2>Items</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let item of items; last as last" [ngClass]="{bottom: last}">
+                    <td>
+                        <img *ngIf="item.name !== 'Other'" [src]="item.sprite" [alt]="item.alt" />
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box moves" id="moves">
+            <h2>Moves</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let move of moves; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ move.name }}</td>
+                    <td>{{ move.type }}</td>
+                    <td>{{ move.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box natures" id="natures">
+            <h2>Natures</h2>
+            <table class="chart">
+                <tr *ngFor="let nature of natures; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ nature.name }}</td>
+                    <td>{{ nature.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box speed" id="speed">
+            <h2>Speed</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[5]}}</p>
+        </div>
+
+        <div class="box hp" id="hp">
+            <h2>HP</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[0]}}</p>
+
+        </div>
+
+        <div class="box attack" id="attack">
+            <h2>Attack</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[1]}}</p>
+        </div>
+
+        <div class="box defense" id="defense">
+            <h2>Defense</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[2]}}</p>
+        </div>
+
+        <div class="box spattack" id="spattack">
+            <h2>Special Attack</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[3]}}</p>
+        </div>
+
+        <div class="box spdefense" id="spdefense">
+            <h2>Special Defense</h2>
+            <p>Base {{this.selectedSpeciesData.baseStats[4]}}</p>
+        </div>
+    </div>
+
+    <div class="right-side-bar"> <!-- For css navigaters and ad space -->
+        <ul>
+            <li><a href="#general-info">Top</a></li>
+            <li><a href="#abilities">Abilities</a></li>
+            <li><a href="#items">Items</a></li>
+            <li><a href="#moves">Moves</a></li>
+            <li><a href="#natures">Natures</a></li>
+            <li><a href="#speed">Speed</a></li>
+            <li><a href="#hp">HP</a></li>
+            <li><a href="#attack">Attack</a></li>
+            <li><a href="#defense">Defense</a></li>
+            <li><a href="#spattack">Sp. Atk.</a></li>
+            <li><a href="#spdefense">Sp. Def.</a></li>
+        </ul>
+    </div>
+</div>

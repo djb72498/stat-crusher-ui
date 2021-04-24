@@ -1,0 +1,10 @@
+<div class="vertical-container">
+    <app-pokemon-list-item *ngFor="let pokemon of this.usageStats; index as idx" 
+        [name]="pokemon.name" 
+        [rank]="pokemon.rank" 
+        [usage]="pokemon.usage"
+        [selected]="idx === selectedIndex"
+        (click)="selectedIndexChange.emit(idx)"
+    >
+    </app-pokemon-list-item>
+</div>

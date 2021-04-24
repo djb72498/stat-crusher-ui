@@ -1,0 +1,9 @@
+<div class="button-container">
+    <button
+        *ngFor="let option of options; index as idx" 
+        class="button" 
+        [ngClass]="{selected: option.value === selection, left: idx === 0, right: idx === options.length - 1}"
+        (click)="selectionChange.emit(option.value)">
+        {{ option.label }}
+    </button>
+</div>

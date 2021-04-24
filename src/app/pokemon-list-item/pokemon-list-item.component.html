@@ -1,0 +1,10 @@
+<div class="main mouseover" [ngClass]="{'selected': this.selected}">
+    <div class="rank-container vertical-center-text">
+        <span class="rank vertical-center-text">#{{ this.rank }}</span>
+    </div>
+    <img class="mini-sprite" [src]="this.icon" alt="err">
+    <span class="name vertical-center-text">{{ this.name }}</span>
+    <div class="usage-container vertical-center-text">
+        <span class="usage vertical-center-text">{{ this.usage * 100 | number: '1.2-2' }}%</span>
+    </div>
+</div>

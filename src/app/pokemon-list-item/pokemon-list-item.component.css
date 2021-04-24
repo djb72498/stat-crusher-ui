@@ -1,0 +1,52 @@
+.main {
+    border-bottom: #555555 solid 1px;
+    border-right: #555555 solid 1px;
+    display: flex;
+}
+
+.selected {
+    background-color: #444444
+}
+
+.mouseover:hover {
+    background-color: #555555
+}
+
+.selected .usage,
+.mouseover:hover .usage {
+    color: #f44;
+}
+
+.usage-container {
+    flex-basis: 50px;
+    margin-right: 10px;
+}
+
+.usage {
+    color: #bb2222;
+}
+
+.rank-container {
+    flex-basis: 50px;
+    text-align: right;
+    display: inline-block;
+    height: auto;
+}
+
+.mini-sprite {
+    position: relative;
+    bottom: 4px;
+    flex-basis: 68px;
+    height: 56px;
+    display: inline-block;
+}
+
+.name {
+    flex-grow: 1;
+    display: inline-block;
+}
+
+.vertical-center-text {
+    padding: 23px 0;
+}
+
