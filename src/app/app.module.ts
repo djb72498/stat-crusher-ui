@@ -7,6 +7,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LodaingComponent } from './lodaing/lodaing.component';
 import { SelectorButtonsComponent } from './selector-buttons/selector-buttons.component';
 import { HistogramComponent } from './histogram/histogram.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartTabComponent } from './chart-tab/chart-tab.component';
 
 @NgModule({
   declarations: [
@@ -15,11 +17,13 @@ import { HistogramComponent } from './histogram/histogram.component';
     PokemonListItemComponent,
     LodaingComponent,
     SelectorButtonsComponent,
-    HistogramComponent
+    HistogramComponent,
+    ChartTabComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
     HttpClient

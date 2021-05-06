@@ -1,0 +1,52 @@
+.tab-container {
+    width: 100%;
+    display: block;
+}
+
+.tab {
+    display: inline-block;
+    padding: 5px;
+    border-radius: 15% 15% 0 0;
+    text-decoration: none;
+    border: #555 solid 1px;
+    border-bottom: none;
+    background-color: #2f2f2f;
+    color: #555;
+    fill: #555;
+}
+
+.tab svg {
+    height: 33px;
+    width: 33px;
+}
+
+.tab.selected,
+.tab:hover {
+    color: #ccc;
+    fill: #ccc;
+}
+
+.red.selected {
+    background-color: #911;
+}
+
+.red:hover {
+    background-color: #711;
+}
+
+.green.selected {
+    background-color: #191;
+}
+
+.green:hover {
+    background-color: #171;
+}
+
+.blue.selected {
+    background-color: #11f;
+}
+
+.blue:hover {
+    background-color: #119;
+}
+

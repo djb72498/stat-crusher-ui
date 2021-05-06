@@ -2,20 +2,22 @@
     height: 30px;
     border-radius: 1px;
     padding: 0 5px;
-    background-color: #0f0f9f;
+    background-color: #911;
     color: #ccc
 }
 
 .button.right {
     padding-right: 15px;
     border-radius: 1px 15px 15px 1px;
+    margin-right: 15px;
 }
 
 .button.left {
     padding-left: 15px;
     border-radius: 15px 1px 1px 15px;
+    margin-left: 15px;
 }
 
 .button.selected {
-    background-color: #0f0f3f;
+    background-color: #611;
 }

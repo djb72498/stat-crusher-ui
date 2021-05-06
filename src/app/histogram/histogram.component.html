@@ -1,9 +1,33 @@
+<app-chart-tab [(selectedTab)]="mode"></app-chart-tab>
+
 
 <div class="container">
-    <div class="tooltip" [ngClass]="{shown: showTooltip}">I'm here</div>
-    <svg class="canvas">
-        <rect class="mouse-over" (mouseenter)="onHover(true)" (mouseleave)="onHover(false)" x="50" y="50" width="50" height="50" fill="#fff"></rect>
-    </svg>
+    <ng-container [ngSwitch]="mode">
+        <canvas baseChart class="histogram" *ngSwitchCase="0"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+        <canvas baseChart class="histogram" *ngSwitchCase="1"
+            [datasets]="barChartDataAsc"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+        <canvas baseChart class="histogram" *ngSwitchCase="2"
+            [datasets]="barChartDataDesc"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+        </canvas>
+    </ng-container>
 </div>
 
 
