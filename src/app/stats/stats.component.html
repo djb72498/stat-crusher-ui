@@ -1,0 +1,181 @@
+<div class="grid-container">
+    <div class="header">
+        <div class="elo-selection">
+            <span class="inline-block">Elo: </span>
+            <app-selector-buttons class="inline-block" [options]="eloOptions" [selection]="selectedElo" (selectionChange)="changeEloRange($event)">
+            </app-selector-buttons>
+        </div>
+        <div class="title-container">
+            <h1 class="title">Stat Crusher</h1>
+        </div>
+        <div class="nav-container">
+            <a class="nav-link" href="/about">Info</a>
+        </div>
+    </div>
+    <app-pokemon-list 
+        class="pokemon-selector scroll" 
+        [usageStats]="usageData"
+        [selectedIndex]="selectedIndex"
+        (selectedIndexChange)="changeSelectedPokemon($event)"
+    > </app-pokemon-list>
+
+    <div class="pokemon-info scroll flex-container" *ngIf="selectedSpeciesData && !isLoading">
+
+        <div class="box general-info" id="general-info">
+            <img class="image" width="140" height="140" [src]="selectedSpeciesData.officialArt" [alt]="selectedPokemon"/>
+            <div class="usage">
+                <h3>{{selectedPokemonName}}</h3>
+                Type: {{selectedSpeciesData.types.join(' / ')}}<br/>
+                Rank: {{usageData[selectedIndex].rank}}<br/>
+                Usage: {{pokemonUsageInfo.usage * 100 | number: '2.2-2'}}%<br/>
+                Total Montly Usage: {{pokemonUsageInfo.total}}<br/>
+            </div>
+        </div>
+
+        <div class="box abilities" id="abilities">
+            <h2>Abilities</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let ability of abilities; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ ability.name }}</td>
+                    <td>{{ ability.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box items" id="items">
+            <h2>Items</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let item of items; last as last" [ngClass]="{bottom: last}">
+                    <td>
+                        <img *ngIf="item.name !== 'Other'" [src]="item.sprite" [alt]="item.alt" />
+                    </td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box moves" id="moves">
+            <h2>Moves</h2>
+            <table class="chart">
+                <tr class="table-row" *ngFor="let move of moves; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ move.name }}</td>
+                    <td>{{ move.type }}</td>
+                    <td>{{ move.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box natures" id="natures">
+            <h2>Natures</h2>
+            <table class="chart">
+                <tr *ngFor="let nature of natures; last as last" [ngClass]="{bottom: last}">
+                    <td>{{ nature.name }}</td>
+                    <td>{{ nature.usage * 100 | number: '1.2-2' }}%</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="box speed" id="speed">
+            <h2>Speed</h2>
+            <p><b>Base</b> {{ selectedSpeciesData.baseStats[5] }}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.spd.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.spd.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.spd.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.spd.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.spd.raw"
+                [cumulativeAscending]="pokemonUsageInfo.spd.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.spd.cumulativeDesc">
+            </app-histogram>
+            <p class="disclaimer">0 IVs is assumed whenever the Pokemon has 0 EVs and a hindering nature</p>
+        </div>
+
+        <div class="box hp" id="hp">
+            <h2>HP</h2>
+            <p>Base {{ selectedSpeciesData.baseStats[0] }}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.hp.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.hp.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.hp.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.hp.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.hp.raw"
+                [cumulativeAscending]="pokemonUsageInfo.hp.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.hp.cumulativeDesc">
+            </app-histogram>
+        </div>
+
+        <div class="box attack" id="attack">
+            <h2>Attack</h2>
+            <p>Base {{selectedSpeciesData.baseStats[1]}}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.atk.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.atk.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.atk.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.atk.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.atk.raw"
+                [cumulativeAscending]="pokemonUsageInfo.atk.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.atk.cumulativeDesc">
+            </app-histogram>
+            <p class="disclaimer">0 IVs is assumed whenever the Pokemon has 0 EVs and a hindering nature</p>
+        </div>
+
+        <div class="box defense" id="defense">
+            <h2>Defense</h2>
+            <p>Base {{selectedSpeciesData.baseStats[2]}}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.def.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.def.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.def.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.def.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.def.raw"
+                [cumulativeAscending]="pokemonUsageInfo.def.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.def.cumulativeDesc">
+            </app-histogram>
+        </div>
+
+        <div class="box spattack" id="spattack">
+            <h2>Special Attack</h2>
+            <p>Base {{selectedSpeciesData.baseStats[3]}}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.satk.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.satk.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.satk.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.satk.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.satk.raw"
+                [cumulativeAscending]="pokemonUsageInfo.satk.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.satk.cumulativeDesc">
+            </app-histogram>
+        </div>
+
+        <div class="box spdefense" id="spdefense">
+            <h2>Special Defense</h2>
+            <p>Base {{selectedSpeciesData.baseStats[4]}}</p>
+            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.sdef.p25 }}</p>
+            <p><b>Median: </b>{{ pokemonUsageInfo.sdef.median }}</p>
+            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.sdef.p75 }}</p>
+            <p><b>Average: </b>{{ pokemonUsageInfo.sdef.mean | number: '1.2-2' }}</p>
+            <app-histogram 
+                [frequency]="pokemonUsageInfo.sdef.raw"
+                [cumulativeAscending]="pokemonUsageInfo.sdef.cumulative"
+                [cumulativeDescending]="pokemonUsageInfo.sdef.cumulativeDesc">
+            </app-histogram>
+        </div>
+    </div>
+
+    <div class="right-side-bar"> <!-- For css navigaters and ad space -->
+        <ul>
+            <!--li><a href="#general-info">Top</a></li-->
+            <li><a href="#abilities">Abilities</a></li>
+            <li><a href="#items">Items</a></li>
+            <li><a href="#moves">Moves</a></li>
+            <li><a href="#natures">Natures</a></li>
+            <li><a href="#speed">Speed</a></li>
+            <li><a href="#hp">HP</a></li>
+            <li><a href="#attack">Attack</a></li>
+            <li><a href="#defense">Defense</a></li>
+            <li><a href="#spattack">Sp. Atk.</a></li>
+            <li><a href="#spdefense">Sp. Def.</a></li>
+        </ul>
+    </div>
+</div>

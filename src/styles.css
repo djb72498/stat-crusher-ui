@@ -14,3 +14,10 @@ body {
     overflow: scroll;
 }
 
+a {
+    color: #b11;
+}
+a:visited {
+    color: #911;
+}
+

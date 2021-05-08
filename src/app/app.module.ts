@@ -9,6 +9,9 @@ import { SelectorButtonsComponent } from './selector-buttons/selector-buttons.co
 import { HistogramComponent } from './histogram/histogram.component';
 import { ChartsModule } from 'ng2-charts';
 import { ChartTabComponent } from './chart-tab/chart-tab.component';
+import { StatsComponent } from './stats/stats.component';
+import { AppRoutingModule } from './app-routing.module';
+import { InfoPageComponent } from './info-page/info-page.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +21,15 @@ import { ChartTabComponent } from './chart-tab/chart-tab.component';
     LodaingComponent,
     SelectorButtonsComponent,
     HistogramComponent,
-    ChartTabComponent
+    ChartTabComponent,
+    StatsComponent,
+    InfoPageComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    AppRoutingModule
   ],
   providers: [
     HttpClient

@@ -1,0 +1,119 @@
+.grid-container {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 75px auto;
+    grid-template-columns: 360px auto 220px;
+}
+
+.header {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: #700;
+    display: flex;
+}
+
+.elo-selection,
+.nav-container {
+    flex-basis: 25%;
+    flex-grow: 1;
+}
+
+.elo-selection {
+    padding: 24px;
+    display: inline-block;
+}
+
+.title-container {
+    flex-basis: 50%;
+    text-align: center;
+}
+
+.title {
+    display: block;
+    padding: .75em;
+}
+
+.nav-link,
+.nav-link:visited {
+    display: block;
+    color: #ccc;
+    margin: auto;
+    font-size: 20px;
+    padding: 1.25em;
+    float: right;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.pokemon-selector {
+    grid-row: 2;
+    grid-column: 1;
+}
+
+.scroll {
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.pokemon-info {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+
+.box {
+    margin: 20px;
+    padding: 10px;
+    border: #555555 solid 1px;
+    width: auto;
+}
+
+.general-info {
+    padding: 0;
+    display: flex;
+}
+
+.usage {
+    padding: 10px;
+}
+
+.chart {
+    border-collapse: collapse;
+    display: block;
+    width: auto;
+}
+
+.chart tr:hover {
+    background-color: #555555;
+}
+
+.chart td {
+    height: 36px;
+    margin: 0;
+    padding-inline: 1em;
+    border-bottom: #555555 1px solid;
+}
+
+.chart .bottom td{
+    border-bottom: none;
+}
+
+.right-side-bar {
+    grid-row: 2;
+    grid-column: 3;
+    border: #555555 solid 1px;
+    padding: 30px;
+}
+
+a, a:visited {
+    color: #bb2222;
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
