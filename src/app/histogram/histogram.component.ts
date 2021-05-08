@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Label } from 'ng2-charts';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js'
+import { ChartOptions, ChartTooltipItem, ChartType, ChartDataSets, ChartData } from 'chart.js'
+import { chartOptions, ascChartOptions, descChartOptions } from './chart-options'
 
 @Component({
   selector: 'app-histogram',
@@ -12,12 +13,10 @@ export class HistogramComponent implements OnInit {
   @Input() frequency: {value: number, usage: number}[] = [];
   @Input() cumulativeAscending: {value: number, usage: number}[] = [];
   @Input() cumulativeDescending: {value: number, usage: number}[] = [];
+  @ViewChild('chartTooltip', {read: TemplateRef}) tooltipTemplate?: TemplateRef<any>;
 
   mode = 0;
 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
   barChartLegend = false;
@@ -26,7 +25,11 @@ export class HistogramComponent implements OnInit {
   barChartDataAsc: ChartDataSets[] = [];
   barChartDataDesc: ChartDataSets[] = [];
 
-  constructor() { }
+  barChartOptions: ChartOptions = chartOptions;
+  barChartOptionsAsc: ChartOptions = ascChartOptions;
+  barChartOptionsDesc: ChartOptions = descChartOptions;
+
+  constructor(private viewContainer: ViewContainerRef) { }
 
   ngOnInit(): void {
     this.parseChartData();
@@ -56,5 +59,112 @@ export class HistogramComponent implements OnInit {
       hoverBackgroundColor: "#119"
     }]
   }
- 
+
+  private setChartOptions(): void {
+    const baseChartOptions: ChartOptions = {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            callback: (value: number) => (value * 100).toFixed(0) + '%'
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Percentage'
+          }
+        }]
+      },
+      tooltips: {
+        bodyAlign: 'center',
+        displayColors: false,
+        titleFontColor: '#11f',
+        callbacks: {
+          label: (item: ChartTooltipItem) => {
+            let value: number = +(item.value || 0);
+            return (100 * value).toFixed(2) + '%';
+          }
+        }
+      }
+    };
+  }
+
+  readonly options: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          callback: (value: number) => (value * 100).toFixed(0) + '%'
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Percentage'
+        }
+      }]
+    },
+    tooltips: {
+      bodyAlign: 'center',
+      displayColors: false,
+      titleFontColor: '#11f',
+      callbacks: {
+        label: (item: ChartTooltipItem) => {
+          let value: number = +(item.value || 0);
+          return (100 * value).toFixed(2) + '%';
+        }
+      }
+    }
+  };
+
+  readonly optionsAsc: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          callback: (value: number) => (value * 100).toFixed(0) + '%'
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Percentage'
+        }
+      }]
+    },
+    tooltips: {
+      bodyAlign: 'center',
+      displayColors: false,
+      titleFontColor: '#11f',
+      callbacks: {
+        label: (item: ChartTooltipItem) => {
+          let value: number = +(item.value || 0);
+          return (100 * value).toFixed(2) + '%';
+        }
+      }
+    }
+  };
+
+  readonly optionsDesc: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          callback: (value: number) => (value * 100).toFixed(0) + '%'
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Percentage'
+        }
+      }]
+    },
+    tooltips: {
+      bodyAlign: 'center',
+      displayColors: false,
+      titleFontColor: '#11f',
+      callbacks: {
+        label: (item: ChartTooltipItem) => {
+          let value: number = +(item.value || 0);
+          return (100 * value).toFixed(2) + '%';
+        }
+      }
+    }
+  };
+
+  
 }
