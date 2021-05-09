@@ -10,7 +10,7 @@
     grid-row: 1;
     grid-column-start: 1;
     grid-column-end: 4;
-    background-color: #700;
+    background-color: #711;
     display: flex;
 }
 
@@ -116,4 +116,14 @@ a, a:visited {
 
 li {
     list-style-type: none;
+}
+
+/* Text Styles */
+
+.subtle {
+    color: #666;
+}
+
+.italic {
+    font-style: italic;
 }

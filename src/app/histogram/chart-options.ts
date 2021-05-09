@@ -26,7 +26,7 @@ export const chartOptions: ChartOptions = {
         displayColors: false,
         titleFontColor: '#911',
         callbacks: {
-            title: (item: ChartTooltipItem[]) => '=' + item[0].label,
+            title: (item: ChartTooltipItem[]) => '= ' + item[0].label,
             label: (item: ChartTooltipItem) => {
                 let value: number = +(item.value || 0);
                 return (100 * value).toFixed(2) + '%';
@@ -60,7 +60,7 @@ export const ascChartOptions: ChartOptions = {
         displayColors: false,
         titleFontColor: '#191',
         callbacks: {
-            title: (item: ChartTooltipItem[]) => '\u2264' + item[0].label,
+            title: (item: ChartTooltipItem[]) => '\u2264 ' + item[0].label,
             label: (item: ChartTooltipItem) => {
                 let value: number = +(item.value || 0);
                 return (100 * value).toFixed(2) + '%';
@@ -94,7 +94,7 @@ export const descChartOptions: ChartOptions = {
         displayColors: false,
         titleFontColor: '#11f',
         callbacks: {
-            title: (item: ChartTooltipItem[]) => '\u2265' + item[0].label,
+            title: (item: ChartTooltipItem[]) => '\u2265 ' + item[0].label,
             label: (item: ChartTooltipItem) => {
                 let value: number = +(item.value || 0);
                 return (100 * value).toFixed(2) + '%';

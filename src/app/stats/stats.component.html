@@ -22,13 +22,20 @@
     <div class="pokemon-info scroll flex-container" *ngIf="selectedSpeciesData && !isLoading">
 
         <div class="box general-info" id="general-info">
-            <img class="image" width="140" height="140" [src]="selectedSpeciesData.officialArt" [alt]="selectedPokemon"/>
+            <img class="image" width="140" height="140" [src]="selectedSpeciesData.officialArt" [alt]=""/>
             <div class="usage">
                 <h3>{{selectedPokemonName}}</h3>
-                Type: {{selectedSpeciesData.types.join(' / ')}}<br/>
-                Rank: {{usageData[selectedIndex].rank}}<br/>
-                Usage: {{pokemonUsageInfo.usage * 100 | number: '2.2-2'}}%<br/>
-                Total Montly Usage: {{pokemonUsageInfo.total}}<br/>
+                <div class="subtle italic">{{selectedSpeciesData.types.join(' / ')}}</div>
+                <br/>
+                <div>
+                    <span class="key">Rank: </span>
+                    <span class="value">{{usageData[selectedIndex].rank}}</span>
+                </div>
+                <div>
+                    <span class="key">Usage: </span>
+                    <span class="value">{{pokemonUsageInfo.usage * 100 | number: '1.2-2'}}%</span>
+                </div>
+                <!-- Total Montly Usage: {{pokemonUsageInfo.total}}<br/> -->
             </div>
         </div>
 
@@ -77,89 +84,53 @@
         </div>
 
         <div class="box speed" id="speed">
-            <h2>Speed</h2>
-            <p><b>Base</b> {{ selectedSpeciesData.baseStats[5] }}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.spd.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.spd.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.spd.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.spd.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.spd.raw"
-                [cumulativeAscending]="pokemonUsageInfo.spd.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.spd.cumulativeDesc">
-            </app-histogram>
-            <p class="disclaimer">0 IVs is assumed whenever the Pokemon has 0 EVs and a hindering nature</p>
+            <app-stats-display 
+                [name]="'Speed'"
+                [baseStat]="selectedSpeciesData.baseStats[5]"
+                [data]="pokemonUsageInfo.spd"
+                [showIvNote]="true">
+            </app-stats-display>
         </div>
 
         <div class="box hp" id="hp">
-            <h2>HP</h2>
-            <p>Base {{ selectedSpeciesData.baseStats[0] }}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.hp.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.hp.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.hp.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.hp.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.hp.raw"
-                [cumulativeAscending]="pokemonUsageInfo.hp.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.hp.cumulativeDesc">
-            </app-histogram>
+            <app-stats-display 
+                [name]="'HP'"
+                [baseStat]="selectedSpeciesData.baseStats[0]"
+                [data]="pokemonUsageInfo.hp">
+            </app-stats-display>
         </div>
 
         <div class="box attack" id="attack">
-            <h2>Attack</h2>
-            <p>Base {{selectedSpeciesData.baseStats[1]}}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.atk.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.atk.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.atk.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.atk.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.atk.raw"
-                [cumulativeAscending]="pokemonUsageInfo.atk.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.atk.cumulativeDesc">
-            </app-histogram>
-            <p class="disclaimer">0 IVs is assumed whenever the Pokemon has 0 EVs and a hindering nature</p>
+            <app-stats-display 
+                [name]="'Attack'"
+                [baseStat]="selectedSpeciesData.baseStats[1]"
+                [data]="pokemonUsageInfo.atk"
+                [showIvNote]="true">
+            </app-stats-display>
         </div>
 
         <div class="box defense" id="defense">
-            <h2>Defense</h2>
-            <p>Base {{selectedSpeciesData.baseStats[2]}}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.def.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.def.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.def.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.def.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.def.raw"
-                [cumulativeAscending]="pokemonUsageInfo.def.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.def.cumulativeDesc">
-            </app-histogram>
+            <app-stats-display 
+                [name]="'Defense'"
+                [baseStat]="selectedSpeciesData.baseStats[2]"
+                [data]="pokemonUsageInfo.def">
+            </app-stats-display>
         </div>
 
         <div class="box spattack" id="spattack">
-            <h2>Special Attack</h2>
-            <p>Base {{selectedSpeciesData.baseStats[3]}}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.satk.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.satk.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.satk.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.satk.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.satk.raw"
-                [cumulativeAscending]="pokemonUsageInfo.satk.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.satk.cumulativeDesc">
-            </app-histogram>
+            <app-stats-display 
+                [name]="'Special Attack'"
+                [baseStat]="selectedSpeciesData.baseStats[3]"
+                [data]="pokemonUsageInfo.satk">
+            </app-stats-display>
         </div>
 
         <div class="box spdefense" id="spdefense">
-            <h2>Special Defense</h2>
-            <p>Base {{selectedSpeciesData.baseStats[4]}}</p>
-            <p><b>Quartile 1: </b>{{ pokemonUsageInfo.sdef.p25 }}</p>
-            <p><b>Median: </b>{{ pokemonUsageInfo.sdef.median }}</p>
-            <p><b>Quartile 3: </b> {{ pokemonUsageInfo.sdef.p75 }}</p>
-            <p><b>Average: </b>{{ pokemonUsageInfo.sdef.mean | number: '1.2-2' }}</p>
-            <app-histogram 
-                [frequency]="pokemonUsageInfo.sdef.raw"
-                [cumulativeAscending]="pokemonUsageInfo.sdef.cumulative"
-                [cumulativeDescending]="pokemonUsageInfo.sdef.cumulativeDesc">
-            </app-histogram>
+            <app-stats-display 
+                [name]="'Special Defense'"
+                [baseStat]="selectedSpeciesData.baseStats[4]"
+                [data]="pokemonUsageInfo.sdef">
+            </app-stats-display>
         </div>
     </div>
 

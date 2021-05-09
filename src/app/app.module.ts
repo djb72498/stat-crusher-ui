@@ -12,6 +12,7 @@ import { ChartTabComponent } from './chart-tab/chart-tab.component';
 import { StatsComponent } from './stats/stats.component';
 import { AppRoutingModule } from './app-routing.module';
 import { InfoPageComponent } from './info-page/info-page.component';
+import { StatsDisplayComponent } from './stats-display/stats-display.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { InfoPageComponent } from './info-page/info-page.component';
     HistogramComponent,
     ChartTabComponent,
     StatsComponent,
-    InfoPageComponent
+    InfoPageComponent,
+    StatsDisplayComponent
   ],
   imports: [
     BrowserModule,

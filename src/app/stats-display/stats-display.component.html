@@ -1,0 +1,31 @@
+
+<div class="flex-container left">
+    <h2 class="flex-item">{{ name }}</h2>
+    <span class="flex-item subtle italic" style="margin-top: auto; margin-left: 1em;">(Base {{ baseStat }})</span>
+</div>
+
+<ng-container *ngIf="data">
+    <div class="flex-container space-around statistics">
+        <div>
+            <span class="key">Median: </span>
+            <span class="value">{{ data.median }}</span>
+        </div>
+        <div>
+            <span class="key">Interquartile Range: </span>
+            <span class="value">{{ data.p25 }} - {{ data.p75 }}</span>
+        </div>
+        <div>
+            <span class="key">Average: </span>
+            <span class="value">{{ data.mean | number: '1.2-2' }}</span>
+        </div>
+    </div>
+
+    <app-histogram 
+        [frequency]="data.raw"
+        [cumulativeAscending]="data.cumulative"
+        [cumulativeDescending]="data.cumulativeDesc">
+    </app-histogram>
+    <div class="italic subtle" *ngIf="showIvNote">
+        <br/>* 0 IVs is assumed when the Pokemon has 0 EVs and a hindering nature
+    </div>
+</ng-container>

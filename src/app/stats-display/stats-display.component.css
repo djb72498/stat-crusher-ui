@@ -1,0 +1,20 @@
+
+/* Layout */
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left {
+    justify-content: flex-start;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.statistics {
+    margin-block: 1em;
+}
+
