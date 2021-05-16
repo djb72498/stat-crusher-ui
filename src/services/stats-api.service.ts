@@ -11,6 +11,10 @@ export class StatsApiService {
   readonly url = environment.apiUrl;
   readonly elos = [1500, 1630, 1760];
 
+  // This will need to be updated each month or during format changes
+  readonly time = '2021-04';
+  readonly format = 'gen8vgc2021series9';
+
   constructor(private http: HttpClient) { }
 
   protected formatUrl(path: string, queryParams?: any): string {
@@ -21,16 +25,16 @@ export class StatsApiService {
       return this.url + path;
   }
 
-  public getUsage(time: string, format: string, minElo?: number): Observable<any> {
+  public getUsage(minElo?: number): Observable<any> {
     if (!minElo || !this.elos.includes(minElo)) minElo = 0;
-    const url = this.formatUrl(`/v1/${time}/${format}-${minElo}/usage`);
+    const url = this.formatUrl(`/v1/${this.time}/${this.format}-${minElo}/usage`);
     console.log(`Sending request to ${url}`);
     return this.http.get(url);
   }
 
-  public getPokemonUsage(time: string, format: string, species: string, minElo?: number): Observable<any> {
+  public getPokemonUsage(species: string, minElo?: number): Observable<any> {
     if (!minElo || !this.elos.includes(minElo)) minElo = 0;
-    const url = this.formatUrl(`/v1/${time}/${format}-${minElo}/pokemon/${species}/complete`);
+    const url = this.formatUrl(`/v1/${this.time}/${this.format}-${minElo}/pokemon/${species}/complete`);
     console.log(`Sending request to ${url}`);
     return this.http.get(url);
   }

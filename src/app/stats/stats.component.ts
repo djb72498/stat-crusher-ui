@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonUsage } from '../../models/pokemon-usage';
-import { StatsApiService } from '../services/stats-api.service';
+import { StatsApiService } from '../../services/stats-api.service';
 import { Pokedex } from '../../data/pokedex';
 import { Abilities } from '../../data/abilities';
 import { Items } from '../../data/items';
@@ -13,8 +13,6 @@ import { Moves } from '../../data/moves';
 })
 export class StatsComponent implements OnInit {
   
-  private selectedTime = '2021-03';
-  private selectedFormat = 'gen8vgc2021';
   public selectedElo = 0;
 
   public isLoading = true;
@@ -61,14 +59,14 @@ export class StatsComponent implements OnInit {
   }
 
   private getUsageStats() {
-    this.statsApi.getUsage(this.selectedTime, this.selectedFormat, this.selectedElo).subscribe(response => {
+    this.statsApi.getUsage(this.selectedElo).subscribe(response => {
       this.usageData = response;
       this.changeSelectedPokemon(0);
     });
   }
 
   private getPokemonUsageData(): void {
-    this.statsApi.getPokemonUsage(this.selectedTime, this.selectedFormat, this.selectedPokemonName, this.selectedElo).subscribe(response => {
+    this.statsApi.getPokemonUsage(this.selectedPokemonName, this.selectedElo).subscribe(response => {
       this.pokemonUsageInfo = response;
       this.getAbilities();
       this.getItems();
