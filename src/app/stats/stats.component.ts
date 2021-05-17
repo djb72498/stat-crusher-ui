@@ -29,6 +29,8 @@ export class StatsComponent implements OnInit {
   public moves: any[] = [];
   public natures: any[] = [];
 
+  slideoverVisible = false;
+
   readonly eloOptions = [
     {
       label: 'Any',

@@ -25,7 +25,7 @@ import { StatsDisplayComponent } from './stats-display/stats-display.component';
     ChartTabComponent,
     StatsComponent,
     InfoPageComponent,
-    StatsDisplayComponent
+    StatsDisplayComponent,
   ],
   imports: [
     BrowserModule,

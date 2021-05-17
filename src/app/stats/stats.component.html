@@ -1,4 +1,5 @@
 <div class="grid-container">
+
     <div class="header">
         <div class="elo-selection">
             <span class="inline-block">Elo: </span>
@@ -12,6 +13,7 @@
             <a class="nav-link" href="/about">Info</a>
         </div>
     </div>
+
     <app-pokemon-list 
         class="pokemon-selector scroll" 
         [usageStats]="usageData"
@@ -19,7 +21,7 @@
         (selectedIndexChange)="changeSelectedPokemon($event)"
     > </app-pokemon-list>
 
-    <div class="pokemon-info scroll flex-container" *ngIf="selectedSpeciesData && !isLoading">
+    <div class="pokemon-info scroll" *ngIf="selectedSpeciesData && !isLoading">
 
         <div class="box general-info" id="general-info">
             <img class="image" width="140" height="140" [src]="selectedSpeciesData.officialArt" [alt]=""/>
@@ -149,4 +151,24 @@
             <li><a href="#spdefense">Sp. Def.</a></li>
         </ul>
     </div>
+</div>
+
+<div class="mobile-slideover" [ngClass]="{'visible': slideoverVisible}">
+    <div class="selector-container scroll">
+        <app-pokemon-list 
+            class="pokemon-selector scroll"
+            [usageStats]="usageData"
+            [selectedIndex]="selectedIndex"
+            (selectedIndexChange)="changeSelectedPokemon($event); slideoverVisible = false;"
+        ></app-pokemon-list>
+    </div>
+    <button class="slideover-button" (click)="slideoverVisible = !slideoverVisible">
+        <!-- Pokeball Icon -->
+        <svg viewBox="0 0 30 30" height=30 width=30>
+            <circle cx="15" cy="15" r="14"></circle>
+            <circle cx="15" cy="15" r="5"></circle>
+            <line x1="1" x2="10" y1="15" y2="15"></line>
+            <line x1="20" x2="29" y1="15" y2="15"></line>
+        </svg>
+    </button>
 </div>
