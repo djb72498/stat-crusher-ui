@@ -209,6 +209,7 @@ li {
         width: 40px;
         border-radius: 50%;
         background-color: #711;
+        border: #ccc 2px solid;
         color: #ccc;
         position: absolute;
         left: 365px;
