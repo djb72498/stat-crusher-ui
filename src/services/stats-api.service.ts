@@ -12,7 +12,7 @@ export class StatsApiService {
   readonly elos = [1500, 1630, 1760];
 
   // This will need to be updated each month or during format changes
-  readonly time = '2021-05';
+  readonly time = '2021-06';
   readonly format = 'gen8vgc2021series9';
 
   constructor(private http: HttpClient) { }
